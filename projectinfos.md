@@ -9,3 +9,18 @@ user stories:
 4. As a User, I want to see every product on its own page so that I can get detailed information on the product.
 5. As a User, I want to put products into the cart so that I can buy them.
 6. As a User, I want to check out so that I can finish shopping.
+
+
+Login details:
+
+Accepted usernames are:
+standard_user
+locked_out_user
+problem_user
+performance_glitch_user
+error_user
+visual_user
+
+Password for all users:
+secret_sauce
+
