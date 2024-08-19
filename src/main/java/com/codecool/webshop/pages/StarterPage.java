@@ -13,7 +13,7 @@ public class StarterPage {
     private WebDriver driver;
     private WebDriverWait wait;
     @FindBy(id="user-name")
-    private WebElement userNameInput;
+    public WebElement userNameInput;
 
     @FindBy(id="password")
     private WebElement passwordInput;
@@ -29,6 +29,10 @@ public class StarterPage {
 
     public void fillUserNameInput(String userName){
         wait.until(ExpectedConditions.visibilityOf(userNameInput)).sendKeys(userName);
+    }
+
+    public WebElement getUserNameInput() {
+        return userNameInput;
     }
 
     public void fillPasswordInput(String password){
