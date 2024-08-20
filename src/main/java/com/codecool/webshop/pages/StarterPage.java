@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class StarterPage {
     private WebDriver driver;
-    private WebDriverWait wait;
+    protected WebDriverWait wait;
     @FindBy(id="user-name")
     public WebElement userNameInput;
 
