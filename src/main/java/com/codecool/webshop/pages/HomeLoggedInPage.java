@@ -4,10 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomeLoggedInPage extends StarterPage{
 
-    @FindBy(id = "react-burger-menu-button")
+    @FindBy(id = "react-burger-menu-btn")
     private WebElement burgerMenuButton;
 
     @FindBy(id = "inventory_sidebar_link")
@@ -23,28 +24,27 @@ public class HomeLoggedInPage extends StarterPage{
     private WebElement resetButton;
 
     public HomeLoggedInPage(WebDriver driver) {
-//        super(driver);
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     public void clickOnBurgerMenuButton() {
-        burgerMenuButton.click();
+        wait.until(ExpectedConditions.visibilityOf(burgerMenuButton)).click();
     }
 
     public void clickOnAllItemsButton() {
-        allItemsButton.click();
+        wait.until(ExpectedConditions.visibilityOf(allItemsButton)).click();
     }
 
     public void clickOnAboutButton() {
-        aboutButton.click();
+        wait.until(ExpectedConditions.visibilityOf(aboutButton)).click();
     }
 
     public void clickOnLogoutButton() {
-        logoutButton.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutButton)).click();
     }
 
     public void clickOnResetButton() {
-        resetButton.click();
+        wait.until(ExpectedConditions.visibilityOf(resetButton)).click();
     }
-
 }
