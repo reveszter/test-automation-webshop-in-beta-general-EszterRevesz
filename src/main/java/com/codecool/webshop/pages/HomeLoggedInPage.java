@@ -1,5 +1,6 @@
 package com.codecool.webshop.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,11 +25,17 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(id = "reset_sidebar_link")
     private WebElement resetButton;
 
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private WebElement shoppingCartBtn;
+
     @FindBy(xpath = "//select[@data-test='product-sort-container']")
     private WebElement orderDropdown;
 
     @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name')]")
     private WebElement firstProductName;
+
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//button[contains(@id, 'add-to-cart')]")
+    private WebElement firstAddToCartBtn;
 
     public HomeLoggedInPage(WebDriver driver) {
         super(driver);
@@ -71,5 +78,22 @@ public class HomeLoggedInPage extends StarterPage{
 
     public String getFirstProductName() {
         return wait.until(ExpectedConditions.visibilityOf(firstProductName)).getText();
+    }
+
+    public void clickOnShoppingCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoppingCartBtn)).click();
+    }
+
+    public void clickOnFirstAddToCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(firstAddToCartBtn)).click();
+    }
+
+    public void clickOnAddToCartButtonByProductName(String productName) {
+        String transformedProductName = productName.toLowerCase().replace(' ', '-');
+
+        String customCartId = "add-to-cart-" + transformedProductName;
+        WebElement btn = driver.findElement(By.xpath("//button[contains(@id, '" + customCartId + "')]"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(btn)).click();
     }
 }
