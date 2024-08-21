@@ -27,7 +27,7 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(xpath = "//select[@data-test='product-sort-container']")
     private WebElement orderDropdown;
 
-    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][1]")
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name')]")
     private WebElement firstProductName;
 
     public HomeLoggedInPage(WebDriver driver) {
@@ -66,7 +66,7 @@ public class HomeLoggedInPage extends StarterPage{
     }
 
     public void clickOnFirstProductInTheList() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductName)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(firstProductName)).click();
     }
 
     public String getFirstProductName() {
