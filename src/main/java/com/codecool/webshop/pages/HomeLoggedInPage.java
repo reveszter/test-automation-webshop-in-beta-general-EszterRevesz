@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 public class HomeLoggedInPage extends StarterPage{
 
@@ -22,6 +23,12 @@ public class HomeLoggedInPage extends StarterPage{
 
     @FindBy(id = "reset_sidebar_link")
     private WebElement resetButton;
+
+    @FindBy(xpath = "//select[@data-test='product-sort-container']")
+    private WebElement orderDropdown;
+
+    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][1]")
+    private WebElement firstProductName;
 
     public HomeLoggedInPage(WebDriver driver) {
         super(driver);
@@ -46,5 +53,23 @@ public class HomeLoggedInPage extends StarterPage{
 
     public void clickOnResetButton() {
         wait.until(ExpectedConditions.visibilityOf(resetButton)).click();
+    }
+
+    public void clickOnOrderDropDown() {
+        wait.until(ExpectedConditions.visibilityOf(orderDropdown)).click();
+    }
+
+    public void chooseFromOrderType(String orderType) {
+        wait.until(ExpectedConditions.visibilityOf(orderDropdown));
+        Select select = new Select(orderDropdown);
+        select.selectByValue(orderType);
+    }
+
+    public void clickOnFirstProductInTheList() {
+        wait.until(ExpectedConditions.visibilityOf(firstProductName)).click();
+    }
+
+    public String getFirstProductName() {
+        return wait.until(ExpectedConditions.visibilityOf(firstProductName)).getText();
     }
 }
