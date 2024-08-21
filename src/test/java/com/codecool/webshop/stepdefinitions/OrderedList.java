@@ -32,7 +32,7 @@ public class OrderedList extends Utils{
         homeLoggedInPage.clickOnFirstProductInTheList();
     }
 
-    @Then("user will land on the chosen product detail page")
+    @Then("user can see the products as per the chosen order")
     public void user_will_land_on_the_chosen_product_detail_page() {
 
     }

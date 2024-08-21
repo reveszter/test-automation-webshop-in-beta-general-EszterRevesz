@@ -30,6 +30,16 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][1]")
     private WebElement firstProductName;
 
+    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][last()]")
+    private WebElement lastProductName;
+
+    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][1]/following::div[@class='inventory_item_price'][1]")
+    private WebElement firstProductPrice;
+
+    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][last()]/following::div[@class='inventory_item_price'][1]")
+    private WebElement lastProductPrice;
+
+
     public HomeLoggedInPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -72,4 +82,20 @@ public class HomeLoggedInPage extends StarterPage{
     public String getFirstProductName() {
         return wait.until(ExpectedConditions.visibilityOf(firstProductName)).getText();
     }
+
+
+    public String getLastProductName() {
+        return wait.until(ExpectedConditions.visibilityOf(lastProductName)).getText();
+    }
+
+    public String getFirstProductPrice() {
+        return wait.until(ExpectedConditions.visibilityOf(firstProductPrice)).getText();
+    }
+
+    public String getLastProductPrice() {
+        return wait.until(ExpectedConditions.visibilityOf(lastProductPrice)).getText();
+    }
+
+
+
 }

@@ -4,4 +4,4 @@ Feature: Ordered list
     Given user is logged in and is on the logged in homepage
     When user can choose of the order of the list
     And user can click on any product
-    Then user will land on the chosen product detail page
+    Then user can see the products as per the chosen order
