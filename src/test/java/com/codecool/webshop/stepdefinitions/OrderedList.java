@@ -14,7 +14,7 @@ public class OrderedList extends Utils{
     private final String PRICELOWTOHIGH = "lohi";
     private final String PRICEHIGHTOLOW = "hilo";
 
-    @Given("user is logged in and is on the logged in homepage")
+    @Given("user is on the homepage already authenticated")
     public void user_is_logged_in_and_is_on_the_logged_in_homepage() {
         openNewDriver();
         loginUser();
