@@ -12,7 +12,7 @@ public class ShowProductSteps extends Utils{
     private HomeLoggedInPage homeLoggedInPage;
     private ProductPage productPage;
 
-    @Given("User is logged in on the homepage")
+    @Given("User is logged in on the homepage using {string}")
     public void user_is_logged_in_on_the_homepage(String browser){
         openNewDriver(browser);
         loginUser();
