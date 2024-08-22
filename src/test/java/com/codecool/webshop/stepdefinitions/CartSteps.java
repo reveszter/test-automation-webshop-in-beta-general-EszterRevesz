@@ -14,9 +14,9 @@ public class CartSteps extends Utils {
     private CartPage cartPage;
     private final String SHOPPING_CART_URL = "https://www.saucedemo.com/cart.html";
 
-    @Given("the user successfully logged in")
-    public void the_user_successfully_logged_in() {
-        openNewDriver();
+    @Given("the user successfully logged in {string}")
+    public void the_user_successfully_logged_in(String browser) {
+        openNewDriver(browser);
         loginUser();
     }
 

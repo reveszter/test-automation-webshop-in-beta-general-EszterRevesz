@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginSteps extends Utils{
     private StarterPage starterPage;
 
-    @Given("the user is on the login page")
-    public void the_user_is_on_the_login_page() {
-        openNewDriver();
+    @Given("the user is on the login page using {string}")
+    public void the_user_is_on_the_login_page(String browser) {
+        openNewDriver(browser);
         starterPage = new StarterPage(webDriver);
     }
 

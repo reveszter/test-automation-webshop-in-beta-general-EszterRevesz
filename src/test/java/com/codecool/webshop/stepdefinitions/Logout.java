@@ -14,8 +14,8 @@ public class Logout extends Utils{
     private HomeLoggedInPage homeLoggedInPage;
 
     @Given("user is logged in and is on the logged in homepage")
-    public void user_is_logged_in_and_is_on_the_logged_in_homepage() {
-        openNewDriver();
+    public void user_is_logged_in_and_is_on_the_logged_in_homepage(String browser) {
+        openNewDriver(browser);
         loginUser();
         homeLoggedInPage = new HomeLoggedInPage(webDriver);
         Assertions.assertEquals("https://www.saucedemo.com/inventory.html", webDriver.getCurrentUrl());

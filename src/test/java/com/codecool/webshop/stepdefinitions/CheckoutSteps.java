@@ -20,8 +20,8 @@ public class CheckoutSteps extends Utils {
     private CheckoutCompletePage checkoutCompletePage;
 
     @Given("the user is logged in and already has {string} and {string} in the shopping cart")
-    public void the_user_is_logged_in_and_already_has_this_and_that_in_the_shopping_cart(String firstProductName, String secondProductName) {
-        openNewDriver();
+    public void the_user_is_logged_in_and_already_has_this_and_that_in_the_shopping_cart(String firstProductName, String secondProductName, String browser) {
+        openNewDriver(browser);
         loginUser();
         homeLoggedInPage = new HomeLoggedInPage(webDriver);
         homeLoggedInPage.clickOnAddToCartButtonByProductName(firstProductName);
