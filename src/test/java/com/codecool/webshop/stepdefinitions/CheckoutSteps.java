@@ -74,7 +74,8 @@ public class CheckoutSteps extends Utils {
     @Then("the overview displayed the correct prices {string} {string} {string} are shown")
     public void the_overview_is_displayed_the_correct_prices_are_shown(String itemTotal, String tax, String total) {
         checkoutSecondPage = new CheckoutSecondPage(webDriver);
-        boolean isPriceCorrect = checkoutSecondPage.validateShownPrices();
+        boolean isPriceCorrect = checkoutSecondPage.validateShownPrices(
+                Double.parseDouble(itemTotal), Double.parseDouble(tax), Double.parseDouble(total));
         checkoutSecondPage.clickFinishBtn();
 
         checkoutCompletePage = new CheckoutCompletePage(webDriver);
@@ -82,9 +83,5 @@ public class CheckoutSteps extends Utils {
 
         Assertions.assertEquals(isOrderSuccessful, isPriceCorrect);
         tearDown();
-    }
-
-    public void tearDown() {
-        quitDriver();
     }
 }

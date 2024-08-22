@@ -43,4 +43,8 @@ public abstract class Utils {
         } catch (Exception ignored) {
         }
     }
+
+    public void tearDown() {
+        quitDriver();
+    }
 }

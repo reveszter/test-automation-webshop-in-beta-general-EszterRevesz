@@ -58,7 +58,7 @@ public class CheckoutSecondPage extends CheckoutPage {
                 .collect(Collectors.toList());
     }
 
-    public boolean validateShownPrices() {
+    public boolean validateShownPrices(Double subTotalData, Double taxData, Double totalData) {
         double itemTotal = getSubTotalValue();
         double tax = getTaxValue();
         double total = getTotalValue();
@@ -69,10 +69,14 @@ public class CheckoutSecondPage extends CheckoutPage {
             manualItemTotal += price;
         }
 
-        // if (itemTotal != manualItemTotal) // throw new InvalidPricesShownException("subTotal value is not correct despite the website showing that");
-        // if (itemTotal + tax != total) // throw new InvalidPricesShownException("subTotal + tax doesn't equal total despite the website showing that");
+        if (itemTotal != manualItemTotal) return false;
+        if (itemTotal != subTotalData) return false;
+        if (tax != taxData) return false;
+        if (total != totalData) return false;
+        if (itemTotal + tax != total) return false;
+        if (itemTotal + tax != totalData) return false;
 
-        return itemTotal == manualItemTotal && itemTotal + tax == total;
+        return true;
     }
 
     public void clickFinishBtn() {
