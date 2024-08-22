@@ -7,6 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HomeLoggedInPage extends StarterPage{
 
     @FindBy(id = "react-burger-menu-btn")
@@ -24,21 +29,26 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(id = "reset_sidebar_link")
     private WebElement resetButton;
 
-    @FindBy(xpath = "//select[@data-test='product-sort-container']")
-    private WebElement orderDropdown;
+    @FindBy(className = "product_sort_container")
+    private WebElement orderDropdownContainer;
 
-    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name')]")
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name ')]")
     private WebElement firstProductName;
 
-    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][last()]")
+    @FindBy(xpath = "//div[@class='inventory_item'][last()]//div[contains(@class, 'inventory_item_name ')]")
     private WebElement lastProductName;
 
-    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][1]/following::div[@class='inventory_item_price'][1]")
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[@class='inventory_item_price']")
     private WebElement firstProductPrice;
 
-    @FindBy(xpath = "//*[@id='inventory_container']//div[@class='inventory_item_name'][last()]/following::div[@class='inventory_item_price'][1]")
+    @FindBy(xpath = "//div[@class='inventory_item'][last()]//div[@class='inventory_item_price']")
     private WebElement lastProductPrice;
 
+    @FindBy(xpath = "//div[@class='inventory_item']//div[contains(@class, 'inventory_item_name ')]")
+    private List<WebElement> productNames;
+
+    @FindBy(xpath = "//div[@class='inventory_item']//div[@class='inventory_item_price']")
+    private List<WebElement> productPrices;
 
     public HomeLoggedInPage(WebDriver driver) {
         super(driver);
@@ -65,14 +75,28 @@ public class HomeLoggedInPage extends StarterPage{
         wait.until(ExpectedConditions.visibilityOf(resetButton)).click();
     }
 
-    public void clickOnOrderDropDown() {
-        wait.until(ExpectedConditions.visibilityOf(orderDropdown)).click();
+    public void clickOnOrderDropdownContainer() {
+        wait.until(ExpectedConditions.elementToBeClickable(orderDropdownContainer)).click();
     }
-
     public void chooseFromOrderType(String orderType) {
-        wait.until(ExpectedConditions.visibilityOf(orderDropdown));
-        Select select = new Select(orderDropdown);
-        select.selectByValue(orderType);
+        Select select = new Select(orderDropdownContainer);
+
+        switch (orderType) {
+            case "az":
+                select.selectByValue("az");
+                break;
+            case "za":
+                select.selectByValue("za");
+                break;
+            case "lohi":
+                select.selectByValue("lohi");
+                break;
+            case "hilo":
+                select.selectByValue("hilo");
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid order type: " + orderType);
+        }
     }
 
     public void clickOnFirstProductInTheList() {
@@ -88,14 +112,37 @@ public class HomeLoggedInPage extends StarterPage{
         return wait.until(ExpectedConditions.visibilityOf(lastProductName)).getText();
     }
 
-    public String getFirstProductPrice() {
-        return wait.until(ExpectedConditions.visibilityOf(firstProductPrice)).getText();
+    public Double getFirstProductPrice() {
+        String priceText = firstProductPrice.getText().replace("$", "").trim();
+        return Double.parseDouble(priceText);
     }
 
-    public String getLastProductPrice() {
-        return wait.until(ExpectedConditions.visibilityOf(lastProductPrice)).getText();
+    public Double getLastProductPrice() {
+        String priceText = lastProductPrice.getText().replace("$", "").trim();
+        return Double.parseDouble(priceText);
     }
 
+    public List<String> getAllProductNames() {
+        return productNames.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
 
+    public List<Double> getAllProductPrices() {
+        return productPrices.stream()
+                .map(priceElement -> Double.parseDouble(priceElement.getText().replace("$", "").trim()))
+                .collect(Collectors.toList());
+    }
 
+    public List<Double> sortByPriceHighToLow(List<Double> prices) {
+        List<Double> sortedPrices = new ArrayList<>(prices);
+        sortedPrices.sort(Collections.reverseOrder());
+        return sortedPrices;
+    }
+
+    public List<Double> sortByPriceLowToHigh(List<Double> prices) {
+        List<Double> sortedPrices = new ArrayList<>(prices);
+        sortedPrices.sort(Double::compareTo);
+        return sortedPrices;
+    }
 }

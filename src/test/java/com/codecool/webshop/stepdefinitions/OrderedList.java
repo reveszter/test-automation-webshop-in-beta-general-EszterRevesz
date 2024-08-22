@@ -1,18 +1,17 @@
 package com.codecool.webshop.stepdefinitions;
 
 import com.codecool.webshop.pages.HomeLoggedInPage;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
-public class OrderedList extends Utils{
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class OrderedList extends Utils {
     private HomeLoggedInPage homeLoggedInPage;
-    private final String ATOZORDER = "az";
-    private final String ZTOAORDER = "za";
-    private final String PRICELOWTOHIGH = "lohi";
-    private final String PRICEHIGHTOLOW = "hilo";
 
     @Given("user is on the homepage already authenticated")
     public void user_is_logged_in_and_is_on_the_logged_in_homepage() {
@@ -22,18 +21,61 @@ public class OrderedList extends Utils{
         Assertions.assertEquals("https://www.saucedemo.com/inventory.html", webDriver.getCurrentUrl());
     }
 
-    @When("user can choose of the order of the list")
-    public void user_can_choose_of_the_order_of_the_list() {
-        homeLoggedInPage.chooseFromOrderType(ATOZORDER);
+    @When("user chooses {string} order")
+    public void user_chooses_order(String orderType) {
+        switch (orderType.toLowerCase().replace(" ", "")) {
+            case "atoz":
+                homeLoggedInPage.clickOnOrderDropdownContainer();
+                homeLoggedInPage.chooseFromOrderType("az");
+                break;
+            case "ztoa":
+                homeLoggedInPage.clickOnOrderDropdownContainer();
+                homeLoggedInPage.chooseFromOrderType("za");
+                break;
+            case "lowtohighprice":
+                homeLoggedInPage.clickOnOrderDropdownContainer();
+                homeLoggedInPage.chooseFromOrderType("lohi");
+                break;
+            case "hightolowprice":
+                homeLoggedInPage.clickOnOrderDropdownContainer();
+                homeLoggedInPage.chooseFromOrderType("hilo");
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid order type: " + orderType);
+        }
     }
 
-    @And("user can click on any product")
-    public void user_can_click_on_any_product() {
-        homeLoggedInPage.clickOnFirstProductInTheList();
-    }
+    @Then("user can see the products in {string} order")
+    public void user_can_see_the_products_in_order(String orderType) {
+        List<String> displayedProductNames = homeLoggedInPage.getAllProductNames();
+        List<Double> displayedProductPrices = homeLoggedInPage.getAllProductPrices();
 
-    @Then("user can see the products as per the chosen order")
-    public void user_will_land_on_the_chosen_product_detail_page() {
+        List<String> expectedProductNames = new ArrayList<>(displayedProductNames);
+        List<Double> expectedProductPrices = new ArrayList<>(displayedProductPrices);
 
+        switch (orderType) {
+            case "a to z":
+                expectedProductNames.sort(String::compareTo);
+                Assertions.assertEquals(expectedProductNames, displayedProductNames);
+                quitDriver();
+                break;
+            case "z to a":
+                expectedProductNames.sort(Collections.reverseOrder(String::compareTo));
+                Assertions.assertEquals(expectedProductNames, displayedProductNames);
+                quitDriver();
+                break;
+            case "low to high price":
+                expectedProductPrices.sort(Double::compareTo);
+                Assertions.assertEquals(expectedProductPrices, displayedProductPrices);
+                quitDriver();
+                break;
+            case "high to low price":
+                expectedProductPrices.sort(Collections.reverseOrder());
+                Assertions.assertEquals(expectedProductPrices, displayedProductPrices);
+                quitDriver();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid order type: " + orderType);
+        }
     }
 }
