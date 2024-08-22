@@ -1,5 +1,6 @@
 package com.codecool.webshop.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +33,9 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(className = "product_sort_container")
     private WebElement orderDropdownContainer;
 
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    private WebElement shoppingCartBtn;
+
     @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name ')]")
     private WebElement firstProductName;
 
@@ -49,6 +53,9 @@ public class HomeLoggedInPage extends StarterPage{
 
     @FindBy(xpath = "//div[@class='inventory_item']//div[@class='inventory_item_price']")
     private List<WebElement> productPrices;
+
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//button[contains(@id, 'add-to-cart')]")
+    private WebElement firstAddToCartBtn;
 
     public HomeLoggedInPage(WebDriver driver) {
         super(driver);
@@ -107,7 +114,6 @@ public class HomeLoggedInPage extends StarterPage{
         return wait.until(ExpectedConditions.visibilityOf(firstProductName)).getText();
     }
 
-
     public String getLastProductName() {
         return wait.until(ExpectedConditions.visibilityOf(lastProductName)).getText();
     }
@@ -144,5 +150,22 @@ public class HomeLoggedInPage extends StarterPage{
         List<Double> sortedPrices = new ArrayList<>(prices);
         sortedPrices.sort(Double::compareTo);
         return sortedPrices;
+    }
+
+    public void clickOnShoppingCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoppingCartBtn)).click();
+    }
+
+    public void clickOnFirstAddToCartButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(firstAddToCartBtn)).click();
+    }
+
+    public void clickOnAddToCartButtonByProductName(String productName) {
+        String transformedProductName = productName.toLowerCase().replace(' ', '-');
+
+        String customCartId = "add-to-cart-" + transformedProductName;
+        WebElement btn = driver.findElement(By.xpath("//button[contains(@id, '" + customCartId + "')]"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(btn)).click();
     }
 }
