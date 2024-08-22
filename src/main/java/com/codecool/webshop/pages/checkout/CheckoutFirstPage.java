@@ -1,12 +1,13 @@
 package com.codecool.webshop.pages.checkout;
 
+import com.codecool.webshop.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class CheckoutFirstPage extends CheckoutPage {
+public class CheckoutFirstPage extends BasePage {
 
     @FindBy(xpath = "//input[@id='first-name']")
     private WebElement firstNameInput;

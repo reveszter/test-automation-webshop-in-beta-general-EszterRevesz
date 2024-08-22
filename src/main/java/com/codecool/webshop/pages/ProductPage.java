@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductPage{
+public class ProductPage extends BasePage {
     private WebDriver driver;
     @FindBy(id = "react-burger-menu-btn")
     private WebElement burgerMenuButton;
@@ -26,7 +26,7 @@ public class ProductPage{
     private WebElement productPrice;
 
     public ProductPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

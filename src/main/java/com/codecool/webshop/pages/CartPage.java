@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import java.util.List;
 
-public class CartPage extends StarterPage {
+public class CartPage extends BasePage {
     private By cartItemBy = By.xpath(".//div[@class='cart_item']");
     private By inventoryItemNameBy = By.xpath(".//div[@class='inventory_item_name']");
 

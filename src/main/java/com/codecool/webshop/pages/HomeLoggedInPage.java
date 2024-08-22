@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HomeLoggedInPage extends StarterPage{
+public class HomeLoggedInPage extends BasePage {
 
     @FindBy(id = "react-burger-menu-btn")
     private WebElement burgerMenuButton;

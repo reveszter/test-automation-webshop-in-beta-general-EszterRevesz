@@ -1,11 +1,12 @@
 package com.codecool.webshop.pages.checkout;
 
+import com.codecool.webshop.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutCompletePage extends CheckoutPage {
+public class CheckoutCompletePage extends BasePage {
     private final String ORDER_SUCCESS_MESSAGE = "Thank you for your order!";
 
     @FindBy(xpath = "//h2[@class='complete-header']")

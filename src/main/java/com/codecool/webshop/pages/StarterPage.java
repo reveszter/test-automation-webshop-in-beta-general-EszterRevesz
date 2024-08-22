@@ -5,13 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class StarterPage extends BasePage {
 
-public class StarterPage {
-    protected WebDriver driver;
-    protected WebDriverWait wait;
     @FindBy(id="user-name")
     public WebElement userNameInput;
 
@@ -22,8 +18,7 @@ public class StarterPage {
     private WebElement loginButton;
 
     public StarterPage(WebDriver driver){
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
