@@ -14,9 +14,8 @@ Feature: Checkout
 
   Scenario Outline: User can finish an order with the correctly calculated price
     Given the user is logged in and already has "<product_name_one>" and "<product_name_two>" in the shopping cart
-    And the user filled out the checkout information form with the following information "<first_name>" "<last_name>" "<postal_code>"
-    When the overview displayed the correct prices "<item_total>" "<tax>" "<total>" are shown
-    Then the user should be able to successfully complete their order
+    When the user filled out the checkout information form with the following information "<first_name>" "<last_name>" "<postal_code>"
+    Then the overview displayed the correct prices "<item_total>" "<tax>" "<total>" are shown
 
     Examples:
     | product_name_one    | product_name_two         | first_name | last_name | postal_code | item_total | tax  | total |

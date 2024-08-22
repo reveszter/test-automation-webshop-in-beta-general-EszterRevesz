@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CheckoutSecondPage extends CheckoutPage {
 
@@ -23,7 +24,7 @@ public class CheckoutSecondPage extends CheckoutPage {
     @FindBy(xpath = "//div[@class='summary_total_label']")
     private WebElement totalLabel;
 
-    @FindBy(xpath = "//div[@class='cart-list']/div[@class='inventory_item_price']")
+    @FindBy(xpath = "//div[@class='cart_list']//div[@class='inventory_item_price']")
     private List<WebElement> itemPriceList;
 
     public CheckoutSecondPage(WebDriver driver) {
@@ -51,13 +52,27 @@ public class CheckoutSecondPage extends CheckoutPage {
         return getMoneyValueOutOfText(totalLabel.getText());
     }
 
-    public void validateShownPrices() {
+    private List<Double> getAllProductPrices() {
+        return itemPriceList.stream()
+                .map(priceElement -> Double.parseDouble(priceElement.getText().replace("$", "").trim()))
+                .collect(Collectors.toList());
+    }
+
+    public boolean validateShownPrices() {
         double itemTotal = getSubTotalValue();
         double tax = getTaxValue();
         double total = getTotalValue();
 
-        if (itemTotal + tax != total) throw new InvalidPricesShownException("subTotal + tax doesn't equal total despite the website showing that");
+        List<Double> itemStandalonePrices = getAllProductPrices();
+        double manualItemTotal = 0;
+        for (Double price : itemStandalonePrices) {
+            manualItemTotal += price;
+        }
 
+        // if (itemTotal != manualItemTotal) // throw new InvalidPricesShownException("subTotal value is not correct despite the website showing that");
+        // if (itemTotal + tax != total) // throw new InvalidPricesShownException("subTotal + tax doesn't equal total despite the website showing that");
+
+        return itemTotal == manualItemTotal && itemTotal + tax == total;
     }
 
     public void clickFinishBtn() {

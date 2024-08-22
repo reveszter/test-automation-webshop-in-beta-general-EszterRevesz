@@ -10,7 +10,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Assertions;
 
 public class CheckoutSteps extends Utils {
     private HomeLoggedInPage homeLoggedInPage;
@@ -53,12 +53,15 @@ public class CheckoutSteps extends Utils {
     @Then("the user should be able to successfully complete their order")
     public void the_user_should_be_able_to_successfully_complete_their_order() {
         checkoutCompletePage = new CheckoutCompletePage(webDriver);
-        boolean result = checkoutCompletePage.validateOrderSuccess();
-        assertTrue(result);
+        boolean isOrderSuccessful = checkoutCompletePage.validateOrderSuccess();
+        Assertions.assertTrue(isOrderSuccessful);
         tearDown();
     }
 
-    @And("the user filled out the checkout information form with the following information {string} {string} {string}")
+
+    // _________________________________________________________________________________________________________________
+
+    @When("the user filled out the checkout information form with the following information {string} {string} {string}")
     public void the_user_filled_out_the_checkout_information_form_with_the_following_information(String firstName, String lastName, String postalCode) {
         cartPage.clickCheckoutBtn();
         checkoutFirstPage = new CheckoutFirstPage(webDriver);
@@ -68,10 +71,17 @@ public class CheckoutSteps extends Utils {
         checkoutFirstPage.clickOnContinueBtn();
     }
 
-    @When("the overview displayed the correct prices {string} {string} {string} are shown")
+    @Then("the overview displayed the correct prices {string} {string} {string} are shown")
     public void the_overview_is_displayed_the_correct_prices_are_shown(String itemTotal, String tax, String total) {
-        checkoutSecondPage.validateShownPrices();
+        checkoutSecondPage = new CheckoutSecondPage(webDriver);
+        boolean isPriceCorrect = checkoutSecondPage.validateShownPrices();
         checkoutSecondPage.clickFinishBtn();
+
+        checkoutCompletePage = new CheckoutCompletePage(webDriver);
+        boolean isOrderSuccessful = checkoutCompletePage.validateOrderSuccess();
+
+        Assertions.assertEquals(isOrderSuccessful, isPriceCorrect);
+        tearDown();
     }
 
     public void tearDown() {
