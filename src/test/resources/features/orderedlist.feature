@@ -1,7 +1,15 @@
 Feature: Ordered list
 
-  Scenario: user can see an ordered list of the available products and can choose from them
+  Background:
     Given user is on the homepage already authenticated
-    When user can choose of the order of the list
-    And user can click on any product
-    Then user will land on the chosen product detail page
+
+  Scenario Outline: User can see an ordered list of the available products and can choose the order
+    When user chooses "<order>" order
+    Then user can see the products in "<order>" order
+
+    Examples:
+      | order              |
+      | a to z             |
+      | z to a             |
+      | low to high price  |
+      | high to low price  |

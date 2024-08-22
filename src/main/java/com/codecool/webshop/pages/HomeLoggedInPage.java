@@ -8,6 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HomeLoggedInPage extends StarterPage{
 
     @FindBy(id = "react-burger-menu-btn")
@@ -25,14 +30,29 @@ public class HomeLoggedInPage extends StarterPage{
     @FindBy(id = "reset_sidebar_link")
     private WebElement resetButton;
 
+    @FindBy(className = "product_sort_container")
+    private WebElement orderDropdownContainer;
+
     @FindBy(xpath = "//a[@class='shopping_cart_link']")
     private WebElement shoppingCartBtn;
 
-    @FindBy(xpath = "//select[@data-test='product-sort-container']")
-    private WebElement orderDropdown;
-
-    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name')]")
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[contains(@class, 'inventory_item_name ')]")
     private WebElement firstProductName;
+
+    @FindBy(xpath = "//div[@class='inventory_item'][last()]//div[contains(@class, 'inventory_item_name ')]")
+    private WebElement lastProductName;
+
+    @FindBy(xpath = "//div[@class='inventory_item'][1]//div[@class='inventory_item_price']")
+    private WebElement firstProductPrice;
+
+    @FindBy(xpath = "//div[@class='inventory_item'][last()]//div[@class='inventory_item_price']")
+    private WebElement lastProductPrice;
+
+    @FindBy(xpath = "//div[@class='inventory_item']//div[contains(@class, 'inventory_item_name ')]")
+    private List<WebElement> productNames;
+
+    @FindBy(xpath = "//div[@class='inventory_item']//div[@class='inventory_item_price']")
+    private List<WebElement> productPrices;
 
     @FindBy(xpath = "//div[@class='inventory_item'][1]//button[contains(@id, 'add-to-cart')]")
     private WebElement firstAddToCartBtn;
@@ -62,14 +82,28 @@ public class HomeLoggedInPage extends StarterPage{
         wait.until(ExpectedConditions.visibilityOf(resetButton)).click();
     }
 
-    public void clickOnOrderDropDown() {
-        wait.until(ExpectedConditions.visibilityOf(orderDropdown)).click();
+    public void clickOnOrderDropdownContainer() {
+        wait.until(ExpectedConditions.elementToBeClickable(orderDropdownContainer)).click();
     }
-
     public void chooseFromOrderType(String orderType) {
-        wait.until(ExpectedConditions.visibilityOf(orderDropdown));
-        Select select = new Select(orderDropdown);
-        select.selectByValue(orderType);
+        Select select = new Select(orderDropdownContainer);
+
+        switch (orderType) {
+            case "az":
+                select.selectByValue("az");
+                break;
+            case "za":
+                select.selectByValue("za");
+                break;
+            case "lohi":
+                select.selectByValue("lohi");
+                break;
+            case "hilo":
+                select.selectByValue("hilo");
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid order type: " + orderType);
+        }
     }
 
     public void clickOnFirstProductInTheList() {
@@ -78,6 +112,44 @@ public class HomeLoggedInPage extends StarterPage{
 
     public String getFirstProductName() {
         return wait.until(ExpectedConditions.visibilityOf(firstProductName)).getText();
+    }
+
+    public String getLastProductName() {
+        return wait.until(ExpectedConditions.visibilityOf(lastProductName)).getText();
+    }
+
+    public Double getFirstProductPrice() {
+        String priceText = firstProductPrice.getText().replace("$", "").trim();
+        return Double.parseDouble(priceText);
+    }
+
+    public Double getLastProductPrice() {
+        String priceText = lastProductPrice.getText().replace("$", "").trim();
+        return Double.parseDouble(priceText);
+    }
+
+    public List<String> getAllProductNames() {
+        return productNames.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<Double> getAllProductPrices() {
+        return productPrices.stream()
+                .map(priceElement -> Double.parseDouble(priceElement.getText().replace("$", "").trim()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Double> sortByPriceHighToLow(List<Double> prices) {
+        List<Double> sortedPrices = new ArrayList<>(prices);
+        sortedPrices.sort(Collections.reverseOrder());
+        return sortedPrices;
+    }
+
+    public List<Double> sortByPriceLowToHigh(List<Double> prices) {
+        List<Double> sortedPrices = new ArrayList<>(prices);
+        sortedPrices.sort(Double::compareTo);
+        return sortedPrices;
     }
 
     public void clickOnShoppingCartButton() {
