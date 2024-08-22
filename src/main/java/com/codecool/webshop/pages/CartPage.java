@@ -3,19 +3,22 @@ package com.codecool.webshop.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.List;
 
-public class CartPage {
-    private WebDriver driver;
-
+public class CartPage extends StarterPage {
     private By cartItemBy = By.xpath(".//div[@class='cart_item']");
     private By inventoryItemNameBy = By.xpath(".//div[@class='inventory_item_name']");
 
+    @FindBy(xpath = "//button[@id='checkout']")
+    private WebElement checkoutBtn;
+
     public CartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -47,5 +50,9 @@ public class CartPage {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         List<WebElement> cartItems = driver.findElements(cartItemBy);
         return cartItems.isEmpty();
+    }
+
+    public void clickCheckoutBtn() {
+        wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
     }
 }

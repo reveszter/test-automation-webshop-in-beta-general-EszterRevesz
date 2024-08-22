@@ -6,7 +6,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -74,9 +73,5 @@ public class CartSteps extends Utils {
         boolean isEmpty = cartPage.isCartEmpty();
         assertTrue(isEmpty);
         tearDown();
-    }
-
-    public void tearDown() {
-        quitDriver();
     }
 }
