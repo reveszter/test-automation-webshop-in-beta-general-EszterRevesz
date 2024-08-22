@@ -19,9 +19,9 @@ public class CheckoutSteps extends Utils {
     private CheckoutSecondPage checkoutSecondPage;
     private CheckoutCompletePage checkoutCompletePage;
 
-    @Given("the user is logged in and already has {string} and {string} in the shopping cart")
-    public void the_user_is_logged_in_and_already_has_this_and_that_in_the_shopping_cart(String firstProductName, String secondProductName) {
-        openNewDriver();
+    @Given("the user is logged in and already has {string} and {string} in the shopping cart using {string}")
+    public void the_user_is_logged_in_and_already_has_and_in_the_shopping_cart_using(String firstProductName, String secondProductName, String browser) {
+        openNewDriver(browser);
         loginUser();
         homeLoggedInPage = new HomeLoggedInPage(webDriver);
         homeLoggedInPage.clickOnAddToCartButtonByProductName(firstProductName);
@@ -61,7 +61,8 @@ public class CheckoutSteps extends Utils {
 
     // _________________________________________________________________________________________________________________
 
-    @When("the user filled out the checkout information form with the following information {string} {string} {string}")
+
+    @When("the user fills out the checkout information form with the following information {string} {string} {string}")
     public void the_user_filled_out_the_checkout_information_form_with_the_following_information(String firstName, String lastName, String postalCode) {
         cartPage.clickCheckoutBtn();
         checkoutFirstPage = new CheckoutFirstPage(webDriver);
