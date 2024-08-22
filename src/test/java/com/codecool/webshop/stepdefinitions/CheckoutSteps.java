@@ -54,8 +54,8 @@ public class CheckoutSteps extends Utils {
     public void the_user_should_be_able_to_successfully_complete_their_order() {
         checkoutCompletePage = new CheckoutCompletePage(webDriver);
         boolean isOrderSuccessful = checkoutCompletePage.validateOrderSuccess();
-        Assertions.assertTrue(isOrderSuccessful);
         tearDown();
+        Assertions.assertTrue(isOrderSuccessful);
     }
 
 
@@ -81,7 +81,7 @@ public class CheckoutSteps extends Utils {
         checkoutCompletePage = new CheckoutCompletePage(webDriver);
         boolean isOrderSuccessful = checkoutCompletePage.validateOrderSuccess();
 
-        Assertions.assertEquals(isOrderSuccessful, isPriceCorrect);
         tearDown();
+        Assertions.assertEquals(isOrderSuccessful, isPriceCorrect);
     }
 }
