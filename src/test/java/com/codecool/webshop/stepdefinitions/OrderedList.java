@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +15,7 @@ public class OrderedList extends Utils {
     private HomeLoggedInPage homeLoggedInPage;
 
     @Given("user is on the homepage already authenticated using {string}")
-    public void user_is_on_the_homepage_already_authenticated_using(String browser) {
+    public void user_is_on_the_homepage_already_authenticated_using(String browser) throws MalformedURLException {
         openNewDriver(browser);
         loginUser();
         homeLoggedInPage = new HomeLoggedInPage(webDriver);

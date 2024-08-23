@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.net.MalformedURLException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +18,7 @@ public class LoginSteps extends Utils{
     private StarterPage starterPage;
 
     @Given("the user is on the login page using {string}")
-    public void the_user_is_on_the_login_page(String browser) {
+    public void the_user_is_on_the_login_page(String browser) throws MalformedURLException {
         openNewDriver(browser);
         starterPage = new StarterPage(webDriver);
     }

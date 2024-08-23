@@ -7,13 +7,15 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
+import java.net.MalformedURLException;
+
 public class ShowProductSteps extends Utils{
 
     private HomeLoggedInPage homeLoggedInPage;
     private ProductPage productPage;
 
     @Given("User is logged in on the homepage using {string}")
-    public void user_is_logged_in_on_the_homepage(String browser){
+    public void user_is_logged_in_on_the_homepage(String browser) throws MalformedURLException {
         openNewDriver(browser);
         loginUser();
     }

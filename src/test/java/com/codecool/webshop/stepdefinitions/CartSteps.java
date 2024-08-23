@@ -7,6 +7,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.net.MalformedURLException;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartSteps extends Utils {
@@ -15,7 +17,7 @@ public class CartSteps extends Utils {
     private final String SHOPPING_CART_URL = "https://www.saucedemo.com/cart.html";
 
     @Given("the user successfully logged in {string}")
-    public void the_user_successfully_logged_in(String browser) {
+    public void the_user_successfully_logged_in(String browser) throws MalformedURLException {
         openNewDriver(browser);
         loginUser();
     }

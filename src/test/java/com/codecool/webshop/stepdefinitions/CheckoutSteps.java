@@ -12,6 +12,8 @@ import io.cucumber.java.en.When;
 
 import org.junit.jupiter.api.Assertions;
 
+import java.net.MalformedURLException;
+
 public class CheckoutSteps extends Utils {
     private HomeLoggedInPage homeLoggedInPage;
     private CartPage cartPage;
@@ -20,7 +22,7 @@ public class CheckoutSteps extends Utils {
     private CheckoutCompletePage checkoutCompletePage;
 
     @Given("the user is logged in and already has {string} and {string} in the shopping cart using {string}")
-    public void the_user_is_logged_in_and_already_has_and_in_the_shopping_cart_using(String firstProductName, String secondProductName, String browser) {
+    public void the_user_is_logged_in_and_already_has_and_in_the_shopping_cart_using(String firstProductName, String secondProductName, String browser) throws MalformedURLException {
         openNewDriver(browser);
         loginUser();
         homeLoggedInPage = new HomeLoggedInPage(webDriver);
