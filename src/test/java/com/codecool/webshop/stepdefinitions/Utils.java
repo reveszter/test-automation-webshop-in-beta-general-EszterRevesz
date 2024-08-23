@@ -28,17 +28,8 @@ public abstract class Utils {
         try {
             switch (browser.toLowerCase()) {
                 case "firefox":
-                    webDriver = new FirefoxDriver();
-                    break;
                 case "chrome":
-                    webDriver = new ChromeDriver();
-                    break;
                 case "edge":
-                    webDriver = new EdgeDriver();
-                    break;
-                case "remote-firefox":
-                case "remote-chrome":
-                case "remote-edge":
                     DesiredCapabilities capabilities = new DesiredCapabilities();
                     capabilities.setBrowserName(browser.replace("remote-", ""));
                     webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
