@@ -10,8 +10,11 @@ Feature: Checkout
     Examples:
       | product_name_one    | product_name_two         | browser | first_name | last_name | postal_code |
       | Sauce Labs Backpack | Sauce Labs Bike Light    | firefox | James      | Smith     | 10016       |
+      | Sauce Labs Backpack | Sauce Labs Bike Light    | chrome  | James      | Smith     | 10016       |
       | Sauce Labs Backpack | Sauce Labs Bike Light    | edge    | James      | Smith     | 10016       |
+      | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | firefox | Michael    | Williams  | 90068       |
       | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | chrome  | Michael    | Williams  | 90068       |
+      | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | edge    | Michael    | Williams  | 90068       |
 
 
   Scenario Outline: User can finish an order with the correctly calculated price
@@ -22,7 +25,8 @@ Feature: Checkout
     Examples:
       | product_name_one    | product_name_two         | browser | first_name | last_name | postal_code | item_total | tax  | total |
       | Sauce Labs Backpack | Sauce Labs Bike Light    | firefox | James      | Smith     | 10016       | 39.98      | 3.20 | 43.18 |
-      | Sauce Labs Backpack | Sauce Labs Bike Light    | edge    | James      | Smith     | 10016       | 39.98      | 3.20 | 43.18 |
       | Sauce Labs Backpack | Sauce Labs Bike Light    | chrome  | James      | Smith     | 10016       | 39.98      | 3.20 | 43.18 |
-
-
+      | Sauce Labs Backpack | Sauce Labs Bike Light    | edge    | James      | Smith     | 10016       | 39.98      | 3.20 | 43.18 |
+      | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | firefox | Michael    | Williams  | 90068       | 57.98      | 4.64 | 62.62 |
+      | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | chrome  | Michael    | Williams  | 90068       | 57.98      | 4.64 | 62.62 |
+      | Sauce Labs Onesie   | Sauce Labs Fleece Jacket | edge    | Michael    | Williams  | 90068       | 57.98      | 4.64 | 62.62 |

@@ -10,8 +10,11 @@ Feature: Shopping Cart
     Examples:
       | browser  | product_name        |
       | firefox  | Sauce Labs Backpack |
-      | chrome   | Sauce Labs Onesie   |
+      | chrome   | Sauce Labs Backpack |
       | edge     | Sauce Labs Backpack |
+      | firefox  | Sauce Labs Onesie   |
+      | chrome   | Sauce Labs Onesie   |
+      | edge     | Sauce Labs Onesie   |
 
 
   Scenario Outline: User can remove product from the shopping cart
@@ -24,5 +27,8 @@ Feature: Shopping Cart
     Examples:
       | browser  | product_name        |
       | firefox  | Sauce Labs Backpack |
-      | chrome   | Sauce Labs Onesie   |
+      | chrome   | Sauce Labs Backpack |
       | edge     | Sauce Labs Backpack |
+      | firefox  | Sauce Labs Onesie   |
+      | chrome   | Sauce Labs Onesie   |
+      | edge     | Sauce Labs Onesie   |
