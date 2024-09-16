@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/CodecoolGlobal/test-automation-webshop-in-beta-general-TiborKovari">
     <img src="https://yt3.googleusercontent.com/R9tQgdmoPESZkadCeUbhI5OiSdPykuRjaP2PcfbLDDmwxqL5i1tpE_9vzNncELnN3A696_KRjrA=s900-c-k-c0x00ffffff-no-rj" alt="Swag Labs Logo" width="80" height="80">
   </a>
 
@@ -12,7 +12,7 @@
   <p align="center">
     This is the repo of the automated test!
     <br />
-    <a href="https://www.saucedemo.com/"><strong>Explore the SUT »</strong></a>
+    <a href="https://www.saucedemo.com/" target="_blank"><strong>Explore the SUT »</strong></a>
   </p>
 </div>
 
