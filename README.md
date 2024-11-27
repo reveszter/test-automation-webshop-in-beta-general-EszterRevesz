@@ -102,7 +102,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/CodecoolGlobal/test-automation-webshop-in-beta-general-TiborKovari.git
+   git clone https://github.com/reveszter/test-automation-webshop-in-beta-general-EszterRevesz.git
    ```
 2. Start docker-compose file to set up Selenium Grid
    ```sh
