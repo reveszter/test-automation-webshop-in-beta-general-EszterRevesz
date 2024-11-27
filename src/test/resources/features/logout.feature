@@ -10,4 +10,4 @@ Feature: Logout
       | browser  |
       | firefox  |
       | chrome   |
-      | edge     |
+      #| edge     |

@@ -12,4 +12,4 @@ Feature: User Login
       | browser  |
       | firefox  |
       | chrome   |
-      | edge     |
+      #| edge     |

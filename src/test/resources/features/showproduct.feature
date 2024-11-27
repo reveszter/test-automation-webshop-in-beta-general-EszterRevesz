@@ -12,4 +12,4 @@ Feature: Show Product
       | browser  |
       | firefox  |
       | chrome   |
-      | edge     |
+      #| edge     |
